@@ -134,28 +134,20 @@ const DEBUG = true;
 📜 Legal & Etika
 
 ✅ PENGGUNAAN YANG DIIZINKAN
-
 · Penetration testing berizin
 · Research keamanan dengan persetujuan
 · Demo edukasi
 
 ❌ PENGGUNAAN YANG DILARANG
-
 · Surveillance tanpa izin
 · Koleksi data illegal
 · Aktivitas malicious
 
-🌐 Demo Live
-
-🚀 Lihat Demo
-
 📄 Lisensi
-
 Distributed under the MIT License. See LICENSE for more information.
 
 👥 Authors
-
-· Shadow Operator - Initial work - YourProfile
+· JhingShaw
 
 ---
 
@@ -163,10 +155,6 @@ Distributed under the MIT License. See LICENSE for more information.
 
 ⚠️ GUNAKAN DENGAN TANGGUNG JAWAB ⚠️
 
-Report Bug • 
-Request Feature• 
-⭐ Star this repo
-
-© 2024 Maintenance Trap - All rights reserved
+© 2025 JhingShaw - All rights reserved
 
 </div>
