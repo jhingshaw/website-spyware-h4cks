@@ -134,19 +134,23 @@ const DEBUG = true;
 📜 Legal & Etika
 
 ✅ PENGGUNAAN YANG DIIZINKAN
+
 · Penetration testing berizin
 · Research keamanan dengan persetujuan
 · Demo edukasi
 
 ❌ PENGGUNAAN YANG DILARANG
+
 · Surveillance tanpa izin
 · Koleksi data illegal
 · Aktivitas malicious
 
 📄 Lisensi
+
 Distributed under the MIT License. See LICENSE for more information.
 
-👥 Authors
+👥 Author
+
 · JhingShaw
 
 ---
