@@ -9,7 +9,7 @@
 
 **Halaman maintenance yang diam-diam mengumpulkan intelijen perangkat**
 
-[![Demo](https://img.shields.io/badge/🚀-Demo_Hidup-success?style=for-the-badge)](https://yourusername.github.io/maintenance-trap)
+[![Demo](https://img.shields.io/badge/🚀-Demo_Hidup-success?style=for-the-badge)](https://JhingShaw.github.io/maintenance-trap)
 [![Deploy](https://img.shields.io/badge/⚡-Deploy_Sekarang-important?style=for-the-badge)](#-deploy-cepat)
 
 </div>
